@@ -7,6 +7,7 @@ import time
 手动编写一个daemon进程
 '''
 
+
 def daemonize(stdin='/dev/null', stdout='/dev/null', stderr='/dev/null'):
     try:
 
@@ -55,14 +56,16 @@ def daemonize(stdin='/dev/null', stdout='/dev/null', stderr='/dev/null'):
     os.dup2(se.fileno(), sys.stderr.fileno())
 
 # 每秒显示一个时间戳
+
+
 def test():
-    sys.stdout.write('Daemon started with pid %d\n' % os.getpid()) 
+    sys.stdout.write('Daemon started with pid %d\n' % os.getpid())
     while True:
-        now = time.strftime("%X", time.localtime())
-        sys.stdout.write(f'{time.ctime()}\n') 
-        sys.stdout.flush() 
+        sys.stdout.write(f'{time.ctime()}\n')
+        sys.stdout.flush()
         time.sleep(1)
 
+
 if __name__ == "__main__":
-    daemonize('/dev/null','/luopingcheng/prgtemp/1.log','/dev/null')
+    daemonize('/dev/null', '/home/luopingcheng/prgtemp/1.log', '/dev/null')
     test()
