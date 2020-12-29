@@ -39,7 +39,13 @@
 【已经完成】
 ## 4
 （此作业需提交至 GitHub）编写一个函数, 当函数被调用时，将调用的时间记录在日志中, 日志文件的保存位置建议为：/var/log/python- 当前日期 /xxxx.log
-【已经提交】
+【已经提交】:**logfunc.py
 ## 5
 想想自己工作中哪些手动的工作可以用 Python 程序自动完成，并亲自尝试一下。
 【之前已经写过简单的python程序】
+# 进一步学习
+## re
+## logging
+## 进程
+## daemon
+https://github.com/serverdensity/python-daemon
