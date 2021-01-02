@@ -1,0 +1,2 @@
+This is a file that will be sent to client since it requests. If you received this file, you will see the time this file is sended.
+you added the info: b'test', this file is sended at: 2021-01-02 23:34:02.446171
