@@ -1,6 +1,5 @@
 # 改为爬取solidot首页新闻内容
 import requests
-import json
 # 网页内容匹配的功能，XPath依赖的包
 from lxml import etree
 
