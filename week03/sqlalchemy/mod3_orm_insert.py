@@ -3,7 +3,7 @@
 
 from sqlalchemy.orm import sessionmaker
 import pymysql
-from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, ForeignKey
+from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, ForeignKey, desc
 from sqlalchemy.ext.declarative import declarative_base
 from datetime import datetime
 from sqlalchemy import DateTime
@@ -59,9 +59,41 @@ session = SessionClass()
 
 # 增加数据
 # 实际上是一种实例化
-book_demo = Book_table(book_name='小深刻的救赎')
+# book_demo = Book_table(book_name='看见')
+# book_demo2 = Book_table(book_name='西游记')
+# book_demo3 = Book_table(book_name='水浒传')
+# book_demo4 = Book_table(book_name='人类文明简史')
 # repr魔术方法在打印时被调用
 # print(book_demo)
 # add 会被自动转换成INSERT INTO 语句
-session.add(book_demo)
+# session.add(book_demo)
+# session.add(book_demo2)
+# session.add(book_demo3)
+# session.add(book_demo4)
+# flush不会结束事务
+# session.flush()
+# commit后才会被写入数据库
+
+# 可以使用session.query进行查询
+
+# 一般不建议直接使用all获取所有，可以使用迭代的方式
+# result = session.query(Book_table).all()
+# for result in session.query(Book_table):
+#     print(result)
+
+# 当取一个值的时候first one scalar
+# first:无论多少个，都返回第一个
+# result = session.query(Book_table).first()
+# one：当返回多个则报错
+# scalar:第一个结果第一个元素，如果没有返回None，如果有多个则报错
+
+# 控制查询的列数
+# result = session.query(Book_table.book_name).first()
+# 查询内容排序，默认升序排列，降序可用desc函数
+# 当需要限制显示条目，使用limit函数
+results = session.query(Book_table.book_name, Book_table.book_id).order_by(desc(Book_table.book_id))
+for result in results.limit(2):
+    print(result)
+
+# print(result)
 session.commit()
