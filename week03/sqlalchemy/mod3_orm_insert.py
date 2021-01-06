@@ -1,12 +1,13 @@
 # ORM方式连接mysql数据库
 # pip install sqlalchemy
 
+from sqlalchemy import DateTime
+from datetime import datetime
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import pymysql
-from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, ForeignKey, desc
-from sqlalchemy.ext.declarative import declarative_base
-from datetime import datetime
-from sqlalchemy import DateTime
+from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData,\
+ForeignKey, desc, func, and_, or_, not_
 
 # 打开数据库连接
 Base = declarative_base()
@@ -27,7 +28,8 @@ class Author_table(Base):
     user_id = Column(Integer(), primary_key=True)
     username = Column(String(15), nullable=False, unique=True)
     created_on = Column(DateTime(), default=datetime.now)
-    updated_on = Column(DateTime(), default=datetime.now, onupdate=datetime.now)
+    updated_on = Column(DateTime(), default=datetime.now,
+                        onupdate=datetime.now)
 
 # Float
 # Decimal
@@ -91,9 +93,25 @@ session = SessionClass()
 # result = session.query(Book_table.book_name).first()
 # 查询内容排序，默认升序排列，降序可用desc函数
 # 当需要限制显示条目，使用limit函数
-results = session.query(Book_table.book_name, Book_table.book_id).order_by(desc(Book_table.book_id))
-for result in results.limit(2):
-    print(result)
+# results = session.query(Book_table.book_name, Book_table.book_id).order_by(desc(Book_table.book_id))
+# for result in results.limit(2):
+#     print(result)
 
-# print(result)
+# 实现类似聚合函数的功能，其余类似：
+# result = session.query(func.count(Book_table.book_name)).first()
+
+# 过滤结果：filter
+# result = session.query(Book_table).filter(Book_table.book_id < 3).first()
+# filter(Book_table.book_id > 2, Book_table.book_id < 4)
+
+# 逻辑与或非
+# 从sqlalchemy中引入：and_,or_,not_
+filter(
+    or_(
+        Book_table.xxx.between(10, 1000),
+        Book_table.yyy.contains('book')
+    )
+)
+
+print(result)
 session.commit()
