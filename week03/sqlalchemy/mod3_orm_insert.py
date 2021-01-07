@@ -6,8 +6,8 @@ from datetime import datetime
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import pymysql
-from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData,\
-ForeignKey, desc, func, and_, or_, not_
+from sqlalchemy import create_engine, Table, Column, Integer, String,\
+    MetaData, ForeignKey, desc, func, and_, or_, not_
 
 # 打开数据库连接
 Base = declarative_base()
