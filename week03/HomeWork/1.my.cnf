@@ -1,0 +1,40 @@
+# For advice on how to change settings please see
+# http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html
+[client]
+default_character_set = utf8mb4
+
+[mysql]
+default_character_set = utf8mb4
+
+[mysqld]
+#
+# Remove leading # and set to the amount of RAM for the most important data
+# cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.
+# innodb_buffer_pool_size = 128M
+#
+# Remove leading # to turn on a very important data integrity option: logging
+# changes to the binary log between backups.
+# log_bin
+#
+# Remove leading # to set options mainly useful for reporting servers.
+# The server defaults are faster for transactions and fast SELECTs.
+# Adjust sizes as needed, experiment to find the optimal values.
+# join_buffer_size = 128M
+# sort_buffer_size = 2M
+# read_rnd_buffer_size = 2M
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+
+interactive_timeout = 28800 #针对交互连接时间
+wait_timeout = 28800 # 非交互连接时间
+max_connections=1000 # MySql的最大连接数
+character_set_server = utf8mb4 # 默认内部运行字符集，也是mysql字符集设置 
+init_connect = 'SET NAMES utf8mb4' # 服务器为每个连接的客户端执行的字符串
+character_set_client_handshake = FALSE
+collation_server = utf8mb4_unicode_ci
