@@ -1,7 +1,7 @@
 # 基础不好，先做一个勉强能用的
 import pymysql
 import sys
-from sqlalchemy import create_engine, and_
+from sqlalchemy import create_engine, and_, desc
 from sqlalchemy.orm import sessionmaker
 from geekcoin_db_orm import DBURL, GeekTimeCoin, GeekTimeRecords, GeekTimeUser
 from dbini_parser import read_db_config
@@ -144,7 +144,8 @@ class PaymentHandler:
 
             session.commit()
 
-            print(f'{from_name} make a {self.coin_number} coins payment to {to_name} at {datetime.now()}.')
+            print(
+                f'{from_name} make a {self.coin_number} coins payment to {to_name} at {datetime.now()}.')
 
         except Exception as e:
             print(e)
@@ -154,18 +155,22 @@ class PaymentHandler:
 
     def show_records(self):
         session = self.payment_session()
-        query = session.query(GeekTimeRecords.from_id, GeekTimeRecords.to_id, GeekTimeRecords.trans_amount, GeekTimeRecords.trans_time).limit(3)
+        query = session.query(GeekTimeRecords.from_id, GeekTimeRecords.to_id,
+                              GeekTimeRecords.trans_amount,
+                              GeekTimeRecords.trans_time).order_by(
+                                  desc(GeekTimeRecords.trans_time)).limit(3)
         for i in query:
             print(f'user {i[0]} paid to {i[1]} : {i[2]} coins . At {i[3]}')
 
     # return the recent coins status
     def __str__(self):
         session = self.payment_session()
-        query = session.query(GeekTimeCoin.coin_user_id, GeekTimeCoin.total_coin)
+        query = session.query(GeekTimeCoin.coin_user_id,
+                              GeekTimeCoin.total_coin)
         user_coins = ''
         for i in query:
             user_coins += f' user: {i[0]}, coins: {i[1]} ||'
-        return "initial coins are:" + user_coins 
+        return "initial coins are:" + user_coins
 
 
 if __name__ == "__main__":
