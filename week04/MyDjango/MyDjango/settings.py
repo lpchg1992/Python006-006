@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'index',
 ]
 
 MIDDLEWARE = [
@@ -73,11 +74,26 @@ WSGI_APPLICATION = 'MyDjango.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'testdb',
+        'USER': 'testuser',
+        'PASSWORD': '!Geektime8848',
+        'HOST': '47.244.201.185',
+        'PORT': '3306',
     }
+    # 生产环境有可能连第二个数据库
+    # db2: {
+    #     ...
+    # }
 }
 
 
