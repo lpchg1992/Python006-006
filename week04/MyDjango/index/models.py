@@ -9,7 +9,7 @@ class Type(models.Model):
 
 
 # 作品名称作者主演
-class name(models.Model):
+class Name(models.Model):
     # id 自动创建
     name = models.CharField(max_length=50)
     author = models.CharField(max_length=50)
