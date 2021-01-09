@@ -15,7 +15,7 @@ def books_short(request):
     # 聚合函数返回字典
     star_avg = f"{T1.objects.aggregate(Avg('n_star'))['n_star__avg']:0.1f}"
     # 情感倾向
-    sent_avg = f"{T1.objects.aggregate(Avg('sentiment'))['sentiment_avg']:0.2f}"
+    sent_avg = f"{T1.objects.aggregate(Avg('sentiment'))['sentiment__avg']:0.2f}"
 
     # 正向数量
     queryset = T1.objects.values('sentiment')
