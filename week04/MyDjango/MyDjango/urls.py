@@ -22,4 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # 例如，当请求空路由，用include转到应用程序中的url.py进行处理
     path('', include('index.urls')),
+    # path函数通过include找到包，通过配置文件注册到APP的app找到的包
+    path('douban/', include('ddDouBan.urls')),
 ]
