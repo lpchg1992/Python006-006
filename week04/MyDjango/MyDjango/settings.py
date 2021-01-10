@@ -90,11 +90,16 @@ DATABASES = {
         'PASSWORD': '!Geektime8848',
         'HOST': '47.244.201.185',
         'PORT': '3306',
-    }
+    },
     # 生产环境有可能连第二个数据库
-    # db2: {
-    #     ...
-    # }
+    'db2': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'testdb',
+        'USER': 'testuser',
+        'PASSWORD': '!Geektime8848',
+        'HOST': '1.tcp.vip.cpolar.cn',
+        'PORT': '20097',
+    }
 }
 
 
