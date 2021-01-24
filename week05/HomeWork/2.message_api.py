@@ -34,9 +34,9 @@ def sendsms(phone_number, content):
         conn.hmset(phone_number, {'time_circle': str(datetime.now()), 'count_circle': 1})
     else:
         time_delta = datetime.now() - datetime.fromisoformat(first_time)
-        if int(time_delta.seconds) <= 60 and now_count >5:
+        if time_delta.seconds <= 60 and now_count >= 5:
             success = False
-        elif int(time_delta.seconds) > 60:
+        elif time_delta.seconds > 60:
             conn.hmset(phone_number, {'time_circle': str(datetime.now()), 'count_circle': 1})
         else:
             conn.hincrby(phone_number, 'count_circle')
@@ -57,7 +57,7 @@ def main():
     contents = (get_content() for i in range(100))
 
     for i in contents:
-        print(f'start send {i}...')
+        print(f'start sending {i}...')
         for n in numbers:
             sendsms(n, i)
 
