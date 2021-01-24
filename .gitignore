@@ -5,6 +5,7 @@ __pycache__/
 
 # IDE
 .vscode
+.DS_*
 
 # C extensions
 *.so
