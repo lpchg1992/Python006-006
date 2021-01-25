@@ -30,6 +30,9 @@ class Cat(Animal):
             return False
         else:
             return True
+    # @classmethod
+    # def get_sound_(cls):
+    #     return cls.sound
 
 
 class Dog(Animal):
