@@ -81,27 +81,27 @@ WSGI_APPLICATION = 'microblog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 # export PATH=$PATH:/usr/local/mysql/bin
 # OSError: mysql_config not found
 # pip install mysqlclient
 # pip install pymysql
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'microblog_dbv5',
-        'USER': 'testuser',
-        'PASSWORD': 'testpass',
-        'HOST': 'server1',
-        'PORT': '3306',
-    }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'microblog_dbv5',
+#         'USER': 'testuser',
+#         'PASSWORD': 'testpass',
+#         'HOST': 'server1',
+#         'PORT': '3306',
+#     }
 
-}
+# }
 
 
 # Password validation

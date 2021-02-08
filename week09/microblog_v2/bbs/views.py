@@ -31,6 +31,8 @@ class CreateUserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = CreateUserSerializer
 
+    # 各种写法是对ModelViewSet的各种改写。可以查看ModelViewSet的源码和说明。
+    # 获取用户详情，当url带有primary key参数时，会调用该方法。
     def retrieve(self, request, pk=None):
         """ 用户详情 """
         # 获取实例
@@ -39,6 +41,7 @@ class CreateUserViewSet(viewsets.ModelViewSet):
         # 序列化
         serializer = self.get_serializer(user)
         data = serializer.data
+        # 查看用户详情时，删除密码字段。
         del data['password']
         return Response(data)
 
@@ -51,10 +54,10 @@ class CreateUserViewSet(viewsets.ModelViewSet):
         """ 
         创建用户 
         """
-        
+        # 请求时发送的数据储存在request中。
         serializer = CreateUserSerializer(data=request.data, context={'request': request})
         # print(request.data['username'])
-        # save 前必须先调用 is_valid()
+        # save 前必须先调用 is_valid()，检查数据的合法性。
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)

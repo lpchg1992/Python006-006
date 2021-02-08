@@ -32,3 +32,6 @@ class CreateUserSerializer(serializers.HyperlinkedModelSerializer):
  		# 对密码进行加密 make_password，这个是django自带的方法。
         attrs['password'] = make_password(attrs['password'])
         return attrs
+    
+    # 当需要校验密码，可以将明文密码和加密密码进行比对
+    # 使用自带方法：check_password。
