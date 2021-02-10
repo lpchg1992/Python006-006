@@ -40,6 +40,7 @@ class Articles(models.Model):
 # https://docs.djangoproject.com/zh-hans/2.2/topics/auth/customizing/#extending-django-s-default-user
 
 class UserProfile(models.Model):
+    # 一种一对一的外键关联方式。
     username = models.OneToOneField(User, related_name="profile", on_delete=models.CASCADE)
     nickname = models.CharField(max_length=30, verbose_name='昵称', default='')
     phone_number = models.CharField(max_length=20, verbose_name='手机', unique=True, blank=True)
@@ -52,6 +53,7 @@ class UserProfile(models.Model):
     @classmethod
     def get_blacklist(cls):
         # seek that is_active = False
+        # 如果用户 不是 激活状态就认为 是 黑名单状态。
         return cls.objects.filter(is_active=False)
 
     class Meta:
@@ -59,7 +61,7 @@ class UserProfile(models.Model):
         # proxy = True
  
 
-    # 当生成 user 的时候自动生成 UserProfile
+    # 当生成 user 的时候自动生成 UserProfile，也就是  联动功能   。
     # 原型是: receiver(signal, **kwargs), 当User产生post_save信号时 
     @receiver(post_save, sender=User)  
     def handler_user_create_content(sender, instance, created, **kwargs):
@@ -67,7 +69,8 @@ class UserProfile(models.Model):
         if created:  
             # 绑定User实例到UserProfile的username字段
             UserProfile.objects.create(username=instance)  
-        
+    
+    # 修改，或者部分修改时，调用这个方法进行同步。
     @receiver(post_save, sender=User)  
     def handler_user_save_content(sender, instance, created, **kwargs):
         # profile = UserProfile.objects.create(username=instance)
