@@ -122,6 +122,7 @@ class UserPostsAPIViewSet(viewsets.ModelViewSet):
         posts_content = serializer.data["content"]
 
         # 发送通知，包括发送用户（from），接收用户（to），发送动词（做了评论）
+        # 使用的是持久化消息方式，是储存在数据库的。
         notify.send(user, recipient=recipient, verb = posts_content )
         
 
