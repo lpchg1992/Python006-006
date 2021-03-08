@@ -5,6 +5,7 @@ class MyThread(threading.Thread):
         super().__init__() # 重构run函数必须要写
         self.n = n
 
+    # 重写run方法。覆盖父类定义的run方法。
     def run(self):
         print("current task：", self.n)
 

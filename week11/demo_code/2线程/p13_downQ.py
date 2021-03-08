@@ -24,6 +24,7 @@ class DownloadThread(threading.Thread):
         r = requests.get(url, stream=True, headers=headers)
         fname = os.path.basename(url) + '.html'
         with open(fname, 'wb') as f:
+            # 用流的方式写入指定文件。
             for chunk in r.iter_content(chunk_size=1024):
                 if not chunk: break
                 f.write(chunk)
@@ -37,12 +38,14 @@ if __name__ == '__main__':
 
     for i in range(5):
         t = DownloadThread(q) # 启动5个线程
+        # daemon线程。
         t.setDaemon(True)
         t.start()
     
     for url in urls:
         q.put(url)
     
+    # 队列阻塞，让父进程结束掉整个进程
     q.join()
 
     

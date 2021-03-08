@@ -11,7 +11,7 @@ urls = [
 
 # 开启线程池
 pool = ThreadPool(4)
-# 获取urls的结果
+# 获取urls的结果，使用map的特性，实现创建多线程。
 results = pool.map(requests.get, urls)
 # 关闭线程池等待任务完成退出
 pool.close()

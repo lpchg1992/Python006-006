@@ -8,6 +8,8 @@ import os
 def run(name):
     print("%s子进程开始，进程ID：%d" % (name, os.getpid()))
     start = time()
+    # 可以通过这个方式，保证每个程序开始运行的时间有微小的差异，
+    # 可应用于爬虫。
     sleep(random.choice([1, 2, 3, 4]))
     end = time()
     print("%s子进程结束，进程ID：%d。耗时%0.2f" % (name, os.getpid(), end-start))
@@ -16,10 +18,14 @@ def run(name):
 if __name__ == "__main__":
     print("父进程开始")
     # 创建多个进程，表示可以同时执行的进程数量。默认大小是CPU的核心数
+    # 通常获取逻辑cpu个数，然后设置进程数量。
     p = Pool(4)
     for i in range(10):
         # 创建进程，放入进程池统一管理
+        # 通过异步运行的方式，每运行一个run，创建一个进程，这些进程由进程池管理。
         p.apply_async(run, args=(i,))
+        # 也可以用同步的方式启动，每个进程需要等待程序结束再继续加载。
+        # p.apply(run, args=(i,))
     # 如果我们用的是进程池，在调用join()之前必须要先close()，
     # 并且在close()之后不能再继续往进程池添加新的进程
     p.close()

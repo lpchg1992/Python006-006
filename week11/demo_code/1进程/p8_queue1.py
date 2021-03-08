@@ -9,12 +9,17 @@
 from multiprocessing import Process, Queue
 
 def f(q):
+    # 当设置了队列大小，可以根据blocked的情况以及timeout处理put行为。
+    # 当无法写入，可以抛出full错误。
     q.put([42, None, 'hello'])
 
 if __name__ == '__main__':
+    # put get是两个主要的方法。实际操作需要对队列的最大存储值进行设置，打个比方，就是设置最大排队数量。
     q = Queue()
     p = Process(target=f, args=(q,))
     p.start()
+    # 通过参数控制get行为。
+    # 如果blocked值是true，直到timeout都是true，则没有数据，可以抛出empty等。
     print(q.get())    # prints "[42, None, 'hello']"
     p.join()
 

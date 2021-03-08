@@ -10,7 +10,9 @@ def f(n, a):
         a[i] = -a[i]
 
 if __name__ == '__main__':
+    # 定义为共享内存类型。
     num = Value('d', 0.0)
+    # 只能是一维数组。
     arr = Array('i', range(10))
 
     p = Process(target=f, args=(num, arr))

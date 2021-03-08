@@ -12,10 +12,13 @@ def job(v, num, l):
         print(v.value, end="|")
     l.release() # 释放
 
+# 进程级别加锁
 def multicore():
     l = mp.Lock() # 定义一个进程锁
     v = mp.Value('i', 0) # 定义共享内存
-    # 进程锁的信息传入各个进程中
+    # 进程锁的信息传入各个进程中，也就是将l这个锁作为参数传入每一个进程。
+    # 如此，两个进程会争抢这个锁，一定有一个抢到。
+    # 可以定义不同的锁。
     p1 = mp.Process(target=job, args=(v,1,l)) 
     p2 = mp.Process(target=job, args=(v,3,l)) 
     p1.start()

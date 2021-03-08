@@ -9,11 +9,13 @@ if __name__ == "__main__":
     seed = ['a', 'b', 'c', 'd']
 
     with ThreadPoolExecutor(3) as executor:
+        # 创建线程，submit，原样传入参数，比如整个列表或者元组，不会迭代传递里面的元素。
         executor.submit(func, seed)
     
     time.sleep(1)
 
     with ThreadPoolExecutor(3) as executor2:
+        # map，依次传入迭代器中的元素。
         executor2.map(func, seed)
     
     time.sleep(1)

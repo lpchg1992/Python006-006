@@ -12,6 +12,7 @@ def job(v, num):
 
 def multicore():
     v = mp.Value('i', 0) # 定义共享变量
+    # 此处对同一个对象的操作没有加锁，可能同时读写，极有可能出现错误。
     p1 = mp.Process(target=job, args=(v,1))
     p2 = mp.Process(target=job, args=(v,3)) # 设定不同的number看如何抢夺内存
     p1.start()

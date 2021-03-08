@@ -44,7 +44,7 @@ class Producer(threading.Thread):
                 with  writelock:
                     print(f'{self.name} put value {self.name} {str(value)} in queue')
                 self.q.put( (f'{self.name} : {str(value)}') ) # 放入队列
-                self.con.notify()   # 通知消费者
+                self.con.notify()   # 通知消费者，已经可以取到值，起到进程间通信的作用。
                 time.sleep(1)
         self.con.release()
 
@@ -69,7 +69,7 @@ class Consumer(threading.Thread):
                 value = self.q.get()
                 with writelock:
                     print(f'{self.name} get value {value} from queue')              
-                self.con.notify()   # 通知生产者
+                self.con.notify()   # 通知生产者，已经取出了一个资源，可以解除wait状态，开始写入数据。
                 time.sleep(1)
         self.con.release()
 
@@ -79,6 +79,7 @@ if __name__ == '__main__':
     q = queue.Queue(10)
     con = threading.Condition()   # 条件变量锁
 
+    # 线程均用条件锁控制。
     p1 = Producer(q, con, 'P1')
     p1.start()
     p2 = Producer(q, con, 'P2')
